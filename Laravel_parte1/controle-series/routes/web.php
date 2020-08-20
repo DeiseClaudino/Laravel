@@ -13,3 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/series', 'SeriesController@index');
+Route::get('/series/criar', 'SeriesController@create');
+
