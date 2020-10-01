@@ -25,7 +25,7 @@ class SeriesController extends Controller
         $serie = Serie::create($request->all());
         $request->session()->flash('mensagem', "Série {$serie->id} criada com sucesso {$serie->nome}");
 
-        return redirect('/series');
+        return redirect()->route('listar_series');
     }
 
     public function destroy(Request $request)
@@ -34,6 +34,6 @@ class SeriesController extends Controller
 
         $request->session()->flash('mensagem', 'Série removida com sucesso');
 
-        return redirect('/series');
+        return redirect()->route('listar_series');
     }
 }
