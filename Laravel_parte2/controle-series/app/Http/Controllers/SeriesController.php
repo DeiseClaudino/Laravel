@@ -23,7 +23,10 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request)
     {
-        $serie = Serie::create($request->all());
+        $serie = Serie::create([
+            'nome'  =>  $request->nome
+        ]);
+
         $qtdTemporadas = $request->qtd_temporadas;
 
         for($i = 1; $i <= $qtdTemporadas; $i++)
