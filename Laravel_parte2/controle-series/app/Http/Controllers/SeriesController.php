@@ -26,7 +26,7 @@ class SeriesController extends Controller
         $serie = Serie::create($request->all());
         $qtdTemporadas = $request->qtd_temporadas;
 
-        for($i = 1; $i < $qtdTemporadas; $i++)
+        for($i = 1; $i <= $qtdTemporadas; $i++)
         {
             $temporada = $serie->temporadas()->create([
                 'numero'    =>  $i
