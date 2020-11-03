@@ -54,4 +54,23 @@ Séries
            nomeSerieEl.hidden = true;
        }
    }
+
+   function editarSerie()
+   {
+       let formdata = new FormData();
+        const nome = document.querySelector('#input-nome-serie-${serieId} > input').value;
+
+        const token = document.querySelector('input[name="_token"]').value;
+
+        formdata.append('nome', nome);
+        formdata.append('_token', token)
+        fetch(url, {
+            body: formData;
+            method: 'POST'
+        }).then(() => {
+            toggleInput(serieId);
+            document.getElementById(`input-nome-serie-${serieId}`).textContent = nome;
+        });
+   }
+
 </script>
