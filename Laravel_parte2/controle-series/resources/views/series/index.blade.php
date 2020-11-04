@@ -55,22 +55,23 @@ Séries
        }
    }
 
-   function editarSerie()
+   function editarSerie(serieId)
    {
-       let formdata = new FormData();
-        const nome = document.querySelector('#input-nome-serie-${serieId} > input').value;
+        let formData = new FormData();
+        const nome = document.querySelector(`#input-nome-serie-${serieId} > input`).value;
 
-        const token = document.querySelector('input[name="_token"]').value;
+    const token = document.querySelector(`input[name="_token"]`).value;
 
-        formdata.append('nome', nome);
-        formdata.append('_token', token)
-        fetch(url, {
-            body: formData;
-            method: 'POST'
-        }).then(() => {
-            toggleInput(serieId);
-            document.getElementById(`input-nome-serie-${serieId}`).textContent = nome;
-        });
-   }
+    formData.append('nome', nome);
+    formData.append('_token', token);
+    const url = `/series/${serieId}/editaNome`;
+    fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then(() => {
+        toggleInput(serieId);
+        document.getElementById(`nome-serie-${serieId}`).textContent = nome;
+    });
+}
 
 </script>
