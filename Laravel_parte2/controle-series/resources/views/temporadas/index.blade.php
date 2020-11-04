@@ -8,7 +8,7 @@
 
     <ul class="list-group">
         @foreach ($temporadas as $temporada)
-        <li class="list-group-item">
+        <li class="list-group-item d-flex justify-content-between align-itens-center">
             <a href="#">
                 Temporada {{ $temporada->numero }}
             </a>
