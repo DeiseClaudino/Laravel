@@ -8,7 +8,14 @@
 
     <ul class="list-group">
         @foreach ($temporadas as $temporada)
-            <li class="list-group-item">Temporada {{ $temporada->numero }}</li>
+        <li class="list-group-item">
+            <a href="#">
+                Temporada {{ $temporada->numero }}
+            </a>
+            <span class="badge badge-secondary">
+                {{ $temporada->episodios->count() }}
+            </span>
+        </li>
         @endforeach
 
 
