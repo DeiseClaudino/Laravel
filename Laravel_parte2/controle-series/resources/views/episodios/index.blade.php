@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('cabecalho')
+    Episódios
+@endsection
+
 @section('conteudo')
 
     <ul class="list-group">
