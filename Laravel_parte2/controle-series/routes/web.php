@@ -21,8 +21,9 @@ Route::get('/series/{serieId}/temporadas', 'TemporadasController@index');
 Route::get('/series/{id}/editaNome', 'SeriesController@editaNome');
 Route::get('temporadas/{temporada}/episodios', 'EpisodiosController@index');
 Route::post('/temporada/{temporada}/episodios/assistir', 'EpisodiosController@assistir');
+Route::get('/entrar', 'EntrarController@index');
+Route::post('/entrar', 'EntrarController@entrar');
 
+// Auth::routes();
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
