@@ -35,3 +35,6 @@ Route::get('/sair', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/visualizando-email', function(){
+    return new \App\Mail\NovaSerie();
+});
