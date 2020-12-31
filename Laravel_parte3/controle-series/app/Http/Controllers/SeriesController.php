@@ -33,6 +33,17 @@ class SeriesController extends Controller
             $request->ep_por_temporada
         );
 
+        $email = new \App\Mail\NovaSerie(
+            $request->nome,
+            $request->qtd_temporadas,
+            $request->ep_por_temporada
+        );
+
+        $email->subject = 'Nova Série Adicionada';
+        $user = $request->user();
+
+        \Illuminate\Support\Facades\Mail::to($user)->send($email);
+
         $request->session()->flash(
             'mensagem',
             "Série {$serie->id} e suas temporadas e episódios criados com sucesso {$serie->nome}"
