@@ -33,6 +33,6 @@ class NovaSerie extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.serie.nova-serie');
+        return $this->markdown('mail.serie.nova-serie');
     }
 }
