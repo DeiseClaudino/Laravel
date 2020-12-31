@@ -11,14 +11,19 @@ class NovaSerie extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $nome;
+    public $qtdTemporadas;
+    public $qtdEpisodios;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($nome, $qtdTemporadas, $qtdEpisodios)
     {
-        //
+        $this->nome          = $nome;
+        $this->qtdTemporadas = $qtdTemporadas;
+        $this->qtdEpisodios  = $qtdEpisodios;
     }
 
     /**
