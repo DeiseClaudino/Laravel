@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Episodio;
+use App\Events\NovaSerie;
 use App\Serie;
 use Illuminate\Http\Request;
 use App\Services\CriadorDeSerie;
@@ -34,26 +35,11 @@ class SeriesController extends Controller
             $request->ep_por_temporada
         );
 
-        $users = User::all();
-
-        foreach($users as $index => $user)
-        {
-            $multiplicaador = $index + 1;
-
-            $email = new \App\Mail\NovaSerie(
-                $request->nome,
-                $request->qtd_temporadas,
-                $request->ep_por_temporada
-            );
-
-            $email->subject = 'Nova Série Adicionada';
-            $when = now()->addSecond($multiplicaador * 10);
-
-            \Illuminate\Support\Facades\Mail::to($user)
-            ->later($when, $email);
-
-        }
-
+        event(new NovaSerie(
+            $request->nome,
+            $request->qtd_temporadas,
+            $request->ep_por_temporada
+        ));
 
         $request->session()->flash(
             'mensagem',
