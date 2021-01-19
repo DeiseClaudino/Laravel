@@ -6,7 +6,7 @@ use App\Events\NovaSerie;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class LogNovaSerieCadastrada
+class LogNovaSerieCadastrada implements ShouldQueue
 {
     /**
      * Create the event listener.

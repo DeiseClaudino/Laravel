@@ -7,7 +7,7 @@ use App\Events\NovaSerie;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class EnviarEmailNovaSerieCadastrada
+class EnviarEmailNovaSerieCadastrada implements ShouldQueue
 {
     /**
      * Create the event listener.
