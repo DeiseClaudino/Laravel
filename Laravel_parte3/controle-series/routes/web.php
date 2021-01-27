@@ -14,41 +14,60 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/series', 'SeriesController@index')->name('listar_series');
-Route::get('/series/criar', 'SeriesController@create')->name('form_criar_series')->middleware('autenticador');
-Route::post('/series/criar', 'SeriesController@store')->middleware('autenticador');
-Route::delete('/series/{id}', 'SeriesController@destroy')->middleware('autenticador');
+Route::get('/series', 'SeriesController@index')
+    ->name('listar_series');
+Route::get('/series/criar', 'SeriesController@create')
+    ->name('form_criar_serie')
+    ->middleware('autenticador');
+Route::post('/series/criar', 'SeriesController@store')
+    ->middleware('autenticador');
+Route::delete('/series/{id}', 'SeriesController@destroy')
+    ->middleware('autenticador');
+Route::post('/series/{id}/editaNome', 'SeriesController@editaNome')
+    ->middleware('autenticador');
+
 Route::get('/series/{serieId}/temporadas', 'TemporadasController@index');
-Route::get('/series/{id}/editaNome', 'SeriesController@editaNome')->middleware('autenticador');
-Route::get('temporadas/{temporada}/episodios', 'EpisodiosController@index');
-Route::post('/temporada/{temporada}/episodios/assistir', 'EpisodiosController@assistir')->middleware('autenticador');
+
+Route::get('/temporadas/{temporada}/episodios', 'EpisodiosController@index');
+
+Route::post('/temporadas/{temporada}/episodios/assistir', 'EpisodiosController@assistir')
+    ->middleware('autenticador');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/entrar', 'EntrarController@index');
 Route::post('/entrar', 'EntrarController@entrar');
 Route::get('/registrar', 'RegistroController@create');
 Route::post('/registrar', 'RegistroController@store');
-Route::get('/sair', function () {
 
-    Auth::logout();
+Route::get('/sair', function () {
+    \Illuminate\Support\Facades\Auth::logout();
     return redirect('/entrar');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/visualizando-email', function(){
-    return new \App\Mail\NovaSerie('Arrow', 5,10);
+Route::get('/visualizando-email',function(){
+   return new \App\Mail\NovaSerie(
+       'Arrow',
+       5,
+       10
+   );
 });
 
-Route::get('/enviando-email', function(){
-    $email = new \App\Mail\NovaSerie('Arrow', 5,10);
+Route::get('/enviando-email',function(){
+    $email = new \App\Mail\NovaSerie(
+        'Arrow',
+        5,
+        10
+    );
+
     $email->subject = 'Nova Série Adicionada';
 
     $user = (object)[
-        'email' =>  'deise@teste.com',
-        'name'  =>  'Deise'
+        'email' => 'diogo@teste.com',
+        'name'=> 'Diogo'
     ];
 
     \Illuminate\Support\Facades\Mail::to($user)->send($email);
-
-    return 'Email enviado com sucesso!';
+    return 'Email enviado!';
 });
