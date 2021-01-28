@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EntrarController extends Controller
 {
@@ -14,9 +14,10 @@ class EntrarController extends Controller
 
     public function entrar(Request $request)
     {
-        if(!Auth::attempt($request->only(['email', 'password'])))
-        {
-            return redirect()->back()->withErrors('Usuário e/ou senha incorretos');
+        if (!Auth::attempt($request->only(['email', 'password']))) {
+            return redirect()
+                ->back()
+                ->withErrors('Usuário e/ou senha incorretos');
         }
 
         return redirect()->route('listar_series');

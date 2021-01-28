@@ -4,18 +4,14 @@ namespace Tests\Feature;
 
 use App\Serie;
 use App\Services\CriadorDeSerie;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CriadorDeSerieTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function testCriarSerie()
     {
         $criadorDeSerie = new CriadorDeSerie();
@@ -23,18 +19,8 @@ class CriadorDeSerieTest extends TestCase
         $serieCriada = $criadorDeSerie->criarSerie($nomeSerie, 1, 1);
 
         $this->assertInstanceOf(Serie::class, $serieCriada);
-
-        $this->assertDatabaseHas('series', [
-            'nome'  => $nomeSerie
-        ]);
-
-        $this->assertDatabaseHas('temporadas', [
-            'serie_id'  =>  $serieCriada->id,
-            'numero'    =>  1
-        ]);
-
-        $this->assertDatabaseHas('episodios', [
-            'numero'    =>  1
-        ]);
+        $this->assertDatabaseHas('series', ['nome' => $nomeSerie]);
+        $this->assertDatabaseHas('temporadas', ['serie_id' => $serieCriada->id, 'numero' => 1]);
+        $this->assertDatabaseHas('episodios', ['numero' => 1]);
     }
 }

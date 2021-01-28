@@ -2,16 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Serie;
 use App\Services\CriadorDeSerie;
 use App\Services\RemovedorDeSerie;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RemovedorDeSerieTeste extends TestCase
+class RemovedorDeSerieTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** @var Serie */
     private $serie;
 
     protected function setUp(): void
@@ -24,24 +26,20 @@ class RemovedorDeSerieTeste extends TestCase
             1
         );
     }
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function testRemoverUmaSerie()
     {
-        $this->assertDatabaseHas('series',
-    [
-        'id'    =>  $this->serie->id
-    ]);
+        $this->assertDatabaseHas(
+            'series',
+            ['id' => $this->serie->id]
+        );
         $removedorDeSerie = new RemovedorDeSerie();
         $nomeSerie = $removedorDeSerie->removerSerie($this->serie->id);
         $this->assertIsString($nomeSerie);
-        $this->assertEquals('Nome da série', $this->serie->nome);
-        $this->assertDatabaseMissing('series',
-        [
-            'id'    =>  $this->serie->id
-        ]);
+        $this->assertEquals('Nome da série',  $this->serie->nome);
+        $this->assertDatabaseMissing(
+            'series',
+            ['id' => $this->serie->id]
+        );
     }
 }

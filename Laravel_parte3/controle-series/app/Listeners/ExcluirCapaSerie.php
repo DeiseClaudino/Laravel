@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\NovaSerie;
+use App\Events\SerieApagada;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Storage;
 
-class LogNovaSerieCadastrada implements ShouldQueue
+class ExcluirCapaSerie implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -21,12 +22,15 @@ class LogNovaSerieCadastrada implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  NovaSerie  $event
+     * @param  SerieApagada  $event
      * @return void
      */
-    public function handle(NovaSerie $event)
+    public function handle(SerieApagada $event)
     {
-        $nomeSerie = $event->nomeSerie;
-        \Log::info('Série nova cadastrada '. $nomeSerie);
+        $serie = $event->serie;
+        if($serie->capa)
+        {
+            Storage::delete($serie->capa);
+        }
     }
 }

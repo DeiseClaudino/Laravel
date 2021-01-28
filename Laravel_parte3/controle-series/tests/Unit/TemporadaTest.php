@@ -5,9 +5,12 @@ namespace Tests\Unit;
 use App\Episodio;
 use App\Temporada;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TemporadaTest extends TestCase
 {
+    /** @var Temporada */
     private $temporada;
 
     protected function setUp(): void
@@ -29,8 +32,9 @@ class TemporadaTest extends TestCase
 
     public function testBuscaPorEpisodiosAssistidos()
     {
-       $episodiosAssistidos = $this->temporada->getEpisodiosAssistidos();
-       $this->assertCount(2, $episodiosAssistidos);
+        $episodiosAssistidos = $this->temporada->getEpisodiosAssistidos();
+
+        $this->assertCount(2, $episodiosAssistidos);
         foreach ($episodiosAssistidos as $episodio) {
             $this->assertTrue($episodio->assistido);
         }

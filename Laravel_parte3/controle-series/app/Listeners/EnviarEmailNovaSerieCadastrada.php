@@ -2,10 +2,10 @@
 
 namespace App\Listeners;
 
-use App\User;
 use App\Events\NovaSerie;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\User;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EnviarEmailNovaSerieCadastrada implements ShouldQueue
 {
@@ -27,25 +27,26 @@ class EnviarEmailNovaSerieCadastrada implements ShouldQueue
      */
     public function handle(NovaSerie $event)
     {
+        $nomeSerie = $event->nomeSerie;
+        $qtdTemporadas = $event->qtdTemporadas;
+        $qtdEpisodios = $event->qtdEpisodios;
+
         $users = User::all();
-
-        foreach($users as $index => $user)
+        foreach ($users as $indice => $user)
         {
-            $multiplicaador = $index + 1;
-
+            $multiplicador = $indice + 1;
             $email = new \App\Mail\NovaSerie(
-                $event->nome,
-                $event->qtd_temporadas,
-                $event->ep_por_temporada
+                $nomeSerie,
+                $qtdTemporadas,
+                $qtdEpisodios
             );
-
             $email->subject = 'Nova Série Adicionada';
-            $when = now()->addSecond($multiplicaador * 10);
-
-            \Illuminate\Support\Facades\Mail::to($user)
-            ->later($when, $email);
-
+            $quando = now()->addSecond($multiplicador * 10);
+            \Illuminate\Support\Facades\Mail::to($user)->later(
+                $quando,
+                $email
+            );
+            //sleep(5);
         }
-
     }
 }
